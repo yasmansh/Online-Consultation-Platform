@@ -24,4 +24,13 @@ To install the packages run the following command:
 ```
 pip install requirements.txt
 ```
+To connect database, run the following commands:
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+Run server:
+```
+python manage.py runserver
+```
 
