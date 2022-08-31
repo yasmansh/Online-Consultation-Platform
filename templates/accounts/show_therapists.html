@@ -1,0 +1,62 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title> مشاورین </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <style>
+            body,
+            html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                background: #d93dee !important;
+            }
+     </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <script>
+                alert('{{ message }}');
+            </script>
+        {% endfor %}
+        </ul>
+    {% endif %}
+        <br>
+        <form class="d-flex" method="POST" action="{% url 'accounts:search-therapist' %}">
+            {% csrf_token %}
+            <input class="form-control" type="search" placeholder="یافتن مشاور با نام یا تخصص موردنظرتان" name="searched">
+            <button class="btn" type="submit">جستجو</button>
+        </form>
+        <br>
+          
+<div class="container">
+    <div class="row text-center">
+          {% for therapist in therapists %}
+              <div class="col-xl-3 col-sm-6 mb-5">    
+                    <a href="{% url 'accounts:therapist-profile' therapist.id %}">
+                        <div class="bg-white rounded shadow-sm py-5 px-4">
+                            <ul>
+                                <img src="{% static 'prof.png' %}" class=" mh-100img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">                        
+                                <li class="list-group-item"><h5 class="mb-0" dir="rtl">دکتر {{therapist.first_name}} {{therapist.last_name}}</h5></li>
+                                <span class="small text-uppercase text-muted" dir="rtl"> تخصص: {{therapist.speciality}}</span><br>
+                                <span class="small text-uppercase text-muted" dir="rtl">شماره نظام پزشکی: {{therapist.medical_education_number}}</span><br>
+                                <span class="small text-uppercase text-muted" dir="rtl">ساعات کاری: {{therapist.working_hours}}</span><br>
+                            </ul>
+                     </div>
+                    </a>
+                </div> 
+          {% endfor %}
+    </div>
+</div>
+
+
+        {% include 'footer.html' %}
+</body>
+</html>

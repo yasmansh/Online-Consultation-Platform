@@ -1,1 +1,73 @@
+<style>
+    #title{
+		color: #d93dee
+	}
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {
+        display: inline;
+    }
+    
+</style>
+
+<div class="bg-dark">
+    <div class="header d-flex justify-content-center" dir="rtl"> 
+        <h1 id="title">مشاوریاب شریف</h1>
+    </div>
+  
+    <div class="header d-flex justify-content-center " dir="rtl"> 
+    <ul>
+        {% if request.user.is_authenticated and request.user.role == 'therapist' %}
+        <li>
+           
+            <span style="color: #d93dee">سلام {{ request.user.first_name }}. خوش آمدید</span>
+          
+            <ul><li><a href="{% url 'home' %}" class="text-white">خانه</a></li></ul>
+            
+            <ul><li><a href="{% url 'show-appointments' request.user.id %}" class="text-white"> لیست ملاقات‌ها</a></li></ul>
+            <ul><li><a href="{% url 'transactions' request.user.id %}" class="text-white"> لیست تراکنش‌ها</a></li></ul>
+            <ul><li><a href="{% url 'accounts:logout' %}" class="text-white">خروج</a></li></ul>
+        </li>
+
+        {% elif request.user.is_authenticated and request.user.role == 'patient' %}
+        <li>
+            <span style="color: #d93dee" >سلام {{ request.user.first_name }}. خوش آمدید</span>
+            <ul><li><a href="{% url 'home' %}" class="text-white">خانه</a></li></ul>
+            
+            <ul><li><a href="{% url 'accounts:show-therapists' %}" class="text-white"> لیست مشاورین</a></li></ul>
+            
+       
+            <ul><li><a href="{% url 'show-appointments' request.user.id %}" class="text-white"> لیست ملاقات‌ها</a></li></ul>
+            <ul><li><a href="{% url 'transactions' request.user.id %}" class="text-white"> لیست تراکنش‌ها</a></li></ul>
+            <ul><li><a href="{% url 'accounts:logout' %}" class="text-white"> خروج</a></li></ul>
+        </li>
+
+        {% else %}
+        <li><a href="{% url 'accounts:therapist-signup' %}" class="text-white"> ثبت نام مشاورین</a></li>
+        <li><a href="{% url 'accounts:patient-signup' %}" class="text-white"> ثبت نام مشاوره‌گیرندگان</a></li>
+
+        <li><a href="{% url 'accounts:login' %}" class="text-white">
+                <span> ورود</span>
+        </a></li>
+        {% endif %}
+
+    </ul>
+    </div>
+</div>
+
+     
+        
+
+                           
+
+                            
+                            
+                
+             
+     
+   
 

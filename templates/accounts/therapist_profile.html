@@ -1,0 +1,59 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title> مشاورین </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+            body,
+            html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                background: #d93dee !important;
+            }
+            
+     </style>
+     
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <script>
+                alert('{{ message }}');
+            </script>
+        {% endfor %}
+        </ul>
+    {% endif %}
+        <br><br><br>
+        
+<div class="container">
+    <div class="row text-center  justify-content-center">
+        <div class="col-sm-6 mb-5">    
+            <img src="{% static 'profile.png' %}" class=" mh-100img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">                        
+            <li class="list-group-item"><h5 class="mb-0" dir="rtl">دکتر {{therapist.first_name}} {{therapist.last_name}}</h5></li>
+            <span class="list-group-item  text-uppercase text-muted" dir="rtl"> تخصص: {{therapist.speciality}}<br>
+            شماره نظام پزشکی: {{therapist.medical_education_number}}<br>
+            ساعات کاری: {{therapist.working_hours}}<br>
+             بهای یک ساعت مشاوره متنی: {{therapist.text_visit_cost_per_hour}}<br>
+             بهای یک ساعت مشاوره ویدیویی: {{therapist.video_visit_cost_per_hour}}<br> </span>     
+            <a href="{% url 'accounts:request' therapist.id %}" class="btn btn-light btn-lg action-button" type="button">درخواست نوبت مشاوره</a>
+            <a href="{% url 'accounts:favourite' therapist.id %}" type="button" class="btn btn-default btn-sm"  style="font-size: 18px;">
+                افزودن به علاقه‌مندی‌ها
+                <span class="glyphicon glyphicon-heart-empty "  style="font-size: 25px; color: rgb(213, 48, 48); -webkit-text-stroke-width: 3.3px; opacity: 1;"></span> 
+            </a>
+              
+        </div> 
+        
+    </div>
+</div>
+        {% include 'footer.html' %}
+</body>
+</html>
